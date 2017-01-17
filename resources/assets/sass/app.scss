@@ -1,0 +1,50 @@
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+.main-container {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.top-buffer-20 {
+  margin-top: 20px;
+}
+
+.top-buffer-50 {
+  margin-top: 50px;
+}
+
+.left-buffer {
+  margin-left: 20px;
+}
+
+.right-buffer {
+  margin-right: 20px;
+}
+
+
+.btn-default {
+  background: #98bc4b;
+  color: #fff;
+  width: 130px;
+}
+
+.pagination li a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination li.active a {
+  background-color: #98bc4b !important;
+  color: white !important;
+}
