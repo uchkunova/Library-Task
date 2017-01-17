@@ -37,7 +37,7 @@ class Book extends BaseModel
      * @param array $attributes
      * @return Book
      */
-    public static function createNew(array $attributes) : Book
+    public static function createNew(array $attributes): Book
     {
         if (empty($attributes['format'])) {
             $attributes['format'] = self::FORMAT_A4;
@@ -66,7 +66,7 @@ class Book extends BaseModel
     /**
      * @return array
      */
-    public static function getFormatTypes()
+    public static function getFormatTypes(): Array
     {
         return [self::FORMAT_A4, self::FORMAT_A3];
     }

@@ -15,8 +15,7 @@
                     to: 0,
                     current_page: 1
                   },
-                offset: 4,
-                ha: ''
+                offset: 4
             }
         },
 
@@ -56,7 +55,7 @@
 
         methods: {
             getItems(page) {
-                this.$http.get('books?page='+page)
+                this.$http.get('api/books?page='+page)
                     .then((response) => {
                         this.books = response.data.data.data;
                         this.pagination = response.data.pagination;

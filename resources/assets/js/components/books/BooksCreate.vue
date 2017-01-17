@@ -1,6 +1,10 @@
 <template>
     <div class="form-group">
         <div class="container-fluid">
+            <div class="alert alert-danger top-buffer-50" v-if="message">
+                {{ message }}
+            </div>
+
             <h1>Add Book</h1>
 
             <form id="createBookForm" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" @submit.prevent="createBook" >
@@ -117,6 +121,7 @@
                                 <input type="file"
                                    placeholder="cover"
                                    name="cover"
+                                   @input="errors.cover=[]"
                                 />
                                 <div v-show="errors.cover" v-for="error in errors.cover">
                                     <span class="text-danger">{{error}}</span>
@@ -152,8 +157,9 @@
                 },
                 errors: {},
                 formatTypes: '',
-                upload_photo_url: window.location.href + '/upload',
-                upload_cover_image: Laravel.basePath + 'images/upload_cover.png'
+                upload_photo_url: Laravel.basePath + 'books/upload',
+                upload_cover_image: Laravel.basePath + 'images/upload_cover.png',
+                message: ''
             }
         },
 
@@ -171,6 +177,7 @@
                     })
                     .catch((error) => {
                         this.errors = error.response.data;
+                        this.message = error.response.data.message;
                     });
             },
 

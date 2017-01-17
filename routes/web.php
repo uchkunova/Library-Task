@@ -16,6 +16,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 Route::get('books', 'BookController@index');
-Route::post('/books', 'BookController@store');
+Route::post('books', 'BookController@store');
+
 Route::get('api/formatTypes', 'BookController@getFormatTypes');
+Route::get('api/books', 'BookController@getItemsPaginated');
 

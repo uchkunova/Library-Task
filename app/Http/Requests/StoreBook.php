@@ -30,7 +30,7 @@ class StoreBook extends FormRequest
             'resume' => 'required|max:500',
             'format' => 'in:A4,A3',
             'page_count' => 'integer',
-            'isbn'=> 'required|regex:/^(\d{13})?$/',
+            'isbn'=> 'required|unique:books,isbn|regex:/^(\d{13})?$/',
             'cover' => 'required|dimensions:min_width=100,min_height=100|max:2048'
         ];
     }

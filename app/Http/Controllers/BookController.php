@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use App\Http\Requests\StoreBook;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -23,27 +22,10 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return \Illuminate\Http\Response | View
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->ajax() && $request->has('page')) {
-            $books = Book::getItemsToPaginate(8);
-
-            return response([
-                'pagination' => [
-                    'total' => $books->total(),
-                    'per_page' => $books->perPage(),
-                    'current_page' => $books->currentPage(),
-                    'last_page' => $books->lastPage(),
-                    'from' => $books->firstItem(),
-                    'to' => $books->lastItem(),
-                ],
-                'data' => $books
-            ]);
-        }
-
         return view('books.index');
     }
 
@@ -56,6 +38,11 @@ class BookController extends Controller
     public function store(StoreBook $request): Response
     {
         $file = request()->file('cover');
+
+        if (is_null($file)) {
+            return response(['message'=>'There was a problem while processing the file'], 422);
+        }
+
         $path = $file->storeAs('covers', uniqid($request->input('title')) . '.' . $file->guessClientExtension());
 
         $book = Book::createNew([
@@ -75,8 +62,28 @@ class BookController extends Controller
     /**
      * @return Response
      */
-    public function getFormatTypes()
+    public function getFormatTypes(): Response
     {
         return response(Book::getFormatTypes());
+    }
+
+    /**
+     * @return Response
+     */
+    public function getItemsPaginated(): Response
+    {
+        $books = Book::getItemsToPaginate(config('app.items_per_page'));
+
+        return response([
+            'pagination' => [
+                'total' => $books->total(),
+                'per_page' => $books->perPage(),
+                'current_page' => $books->currentPage(),
+                'last_page' => $books->lastPage(),
+                'from' => $books->firstItem(),
+                'to' => $books->lastItem(),
+            ],
+            'data' => $books
+        ]);
     }
 }
